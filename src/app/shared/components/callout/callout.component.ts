@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CalloutService } from '../../services/common/callout.service';
 
@@ -8,30 +8,17 @@ import { CalloutService } from '../../services/common/callout.service';
   styleUrls: ['./callout.component.css']
 })
 export class CalloutComponent implements OnInit {
-  private subscription: Subscription;
+  @Input()
   message: any;
 
   constructor(private calloutSvc: CalloutService) { }
 
   ngOnInit() {
-    this.subscription = this.calloutSvc.getAlert()
-      .subscribe(message => {
-        switch (message && message.type) {
-          case 'success':
-            message.cssClass = 'alert alert-success';
-            break;
-          case 'error':
-            message.cssClass = 'alert alert-danger';
-            break;
-        }
-
-        this.message = message;
-      });
+    this.message = null;
   }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+  ngOnChanges(change: SimpleChanges) {
+    if(change['currentValue']) {
+      this.message = change['currentValue'];
+    }
   }
-
-
 }

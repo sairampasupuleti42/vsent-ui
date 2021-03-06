@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CalloutService } from '../../services/common/callout.service';
 
 @Component({
   selector: 'vs-callout',
@@ -11,14 +10,19 @@ export class CalloutComponent implements OnInit {
   @Input()
   message: any;
 
-  constructor(private calloutSvc: CalloutService) { }
 
   ngOnInit() {
     this.message = null;
   }
   ngOnChanges(change: SimpleChanges) {
-    if(change['currentValue']) {
-      this.message = change['currentValue'];
+    if (change['currentValue']) {
+      this.message.text = change['currentValue'];
+    }
+    if (!navigator.onLine) {
+      this.message = {
+        text: "You're in offline",
+        type: 'danger'
+      }
     }
   }
 }

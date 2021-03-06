@@ -11,5 +11,6 @@ export class AuthService {
   doLogin(user) {
     return this.httpSvc.post('https://reqres.in/api/login', user)
   }
+  
 
 }

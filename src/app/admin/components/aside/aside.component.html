@@ -3,28 +3,24 @@
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">
         <h4 class="text-center">
-          Role
+          Admin
         </h4>
       </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-th"></i> <span>Dashboard</span>
+      <li class="header">MAIN NAVIGATION</li>
+      <li class="treeview menu-open" style="height: auto;" *ngFor="let menu of menus">
+        <a>
+          <i class="fa fa-dashboard"></i> <span [innerHTML]="menu.title"></span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
         </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-user"></i> <span>About Me</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-pencil"></i> <span>Posts</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class="fa fa-image"></i> <span>Gallery</span>
-        </a>
+        <ul class="treeview-menu" style="display: block;" *ngIf="menu.subMenu">
+          <li *ngFor="let item of menu.items">
+            <a [routerLink]="item.path" [title]="item.title" [innerHTML]="item.title">
+              <i class="fa fa-circle-o"></i>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </section>

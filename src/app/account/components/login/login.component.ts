@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/common/auth.service';
-import { CalloutService } from 'src/app/shared/services/common/callout.service';
+import { TokenService } from 'src/app/shared/services/common/token.service';
 
 @Component({
   selector: 'vs-login',
@@ -18,12 +18,14 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
   returnUrl: any;
   constructor(private fb: FormBuilder,
-    private calloutSvc: CalloutService,
     private authSvc: AuthService, private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private tokenSvc: TokenService) {
 
   }
   ngOnInit() {
+    if (this.tokenSvc.getToken()) {
+      this.router.navigate(['admin']);
+    }
     this.loginForm = this.fb.group({
       email: new FormControl('eve.holt@reqres.in', Validators.required),
       password: new FormControl('cityslicka', Validators.required),
@@ -47,6 +49,8 @@ export class LoginComponent implements OnInit {
         return of([])
       })).subscribe((response: any) => {
         if (response.token) {
+          this.tokenSvc.saveToken(response.token);
+          this.tokenSvc.saveUser(response);
           this.router.navigate([this.returnUrl]);
         }
       })

@@ -27,12 +27,14 @@ export class HeaderComponent implements OnInit {
       title: "Inventory",
       subMenu: true,
       items: [
-        { path: "commissions", title: "Commissions" },
-        { path: "daily-settings", title: "Daily Settings" },
-        { path: "inventory-changes", title: "Inventory Changes" },
-        { path: "update-inventory", title: "Update Inventory" },
-        { path: "products", title: "Products" },
-        { path: "variants", title: "Variants" }
+        { path: "inventory/products", title: "Products" },
+        { path: "inventory/variants", title: "Variants" },
+        { path: "inventory/commissions", title: "Commissions" },
+        { path: "inventory/daily-settings", title: "Daily Settings" },
+        { path: "inventory/inventory-changes", title: "Inventory Changes" },
+        { path: "inventory/update-inventory", title: "Update Inventory" },
+       
+
       ]
 
     },

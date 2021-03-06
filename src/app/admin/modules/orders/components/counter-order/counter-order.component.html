@@ -1,3 +1,33 @@
-<p>
-  counter-order works!
-</p>
+<div class="box box-danger" data-select2-id="16">
+  <div class="box-header with-border">
+    <h3 class="box-title">Counter Order</h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-success"><i class="fa fa-check"></i> Confirm Order </button>
+      <button type="button" class="btn btn-primary"><i class="fa fa-print"></i> Print </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Minimal</label>
+          <select name="s" id="select2"  class="form-control select2">
+            <option *ngFor="let option of ddp">{{option.name}}</option>
+          </select>
+        </div>
+        <!-- /.form-group -->
+
+      </div>
+      <!-- /.col -->
+
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.box-body -->
+  <div class="box-footer">
+    Visit <a href="https://select2.github.io/">Select2 documentation</a> for more examples and information about
+    the plugin.
+  </div>
+</div>

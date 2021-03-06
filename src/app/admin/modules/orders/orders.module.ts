@@ -7,12 +7,13 @@ import { DeliveryOrderComponent } from './components/delivery-order/delivery-ord
 import { UnpaidOrderComponent } from './components/unpaid-order/unpaid-order.component';
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
 import { OrdersComponent } from './components/orders/orders.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [CounterOrderComponent, DeliveryOrderComponent, UnpaidOrderComponent, DailyReportComponent, OrdersComponent],
   imports: [
     CommonModule,
-    OrdersRoutingModule
+    OrdersRoutingModule,
+    SharedModule
   ]
 })
 export class OrdersModule { }

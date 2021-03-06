@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { ConnectionServiceModule } from 'ng-connection-service';
 import { AuthGuard } from './shared/gaurds/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -14,7 +15,7 @@ import { AuthGuard } from './shared/gaurds/auth.guard';
     BrowserModule,
     AppRoutingModule,
     SharedModule,
-    ConnectionServiceModule
+
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

@@ -1,3 +1,46 @@
-<p>
-  variants works!
-</p>
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title"></h3>
+    <div class="box-tools">
+      <!-- <a class="btn btn-warning  btn-sm">
+
+      </a> -->
+      <a class="btn btn-info btn-sm">
+        Add Variant
+      </a>
+    </div>
+  </div>
+  <div class="box-body">
+    <table id="lists" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>
+            Name
+          </th>
+          <th>
+            Product
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="variants.length>0">
+          <tr *ngFor="let variant of variants;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{variant?.name}}</td>
+            <td><img [src]="variant?.product" [alt]="variant?.name" /></td>
+            <td><button class="btn btn-danger" disabled>Remove</button>
+          </tr>
+        </ng-container>
+        <tr *ngIf="!variants.length>0">
+          <td colspan='4'>No variants available !</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+    </div>
+  </div>
+</div>

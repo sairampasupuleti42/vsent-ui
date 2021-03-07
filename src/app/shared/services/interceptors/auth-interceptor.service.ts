@@ -8,12 +8,12 @@ import { TokenService } from '../common/token.service';
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(public auth: AuthService, private tokenSvc: TokenService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const ANSHAI_VESTN = '123456';
+    const ANSHAI_VESTN = 'sbosrpa';
   
     const token = this.tokenSvc.getToken();
     return next.handle(
       req.clone(
-        { setHeaders: { ANSHAI_VESTN, Authorization: `Bearer ${token}` } }
+        { setHeaders: { ANSHAI_VESTN, Authorization: `r,${token}` } }
       )).pipe(retry(1),
         tap((event: HttpEvent<any>) => {
 

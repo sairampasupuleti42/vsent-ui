@@ -9,13 +9,13 @@
 @import url("assets/dist/css/iCheck/all.css");
 @import url("assets/dist/css/select2.min.css");
 
-.login-page {
-  overflow: hidden;
-}
 
 .connect {
   position: absolute;
   bottom: 0;
   right: 0;
   width: 250px;
+}
+.layout-boxed {
+  min-height: 100vh important !important;
 }

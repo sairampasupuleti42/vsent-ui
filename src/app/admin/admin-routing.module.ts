@@ -15,10 +15,12 @@ const routes: Routes = [
         canActivate: [AuthGuard]
       }, {
         path: "orders",
-        loadChildren: "./modules/orders/orders.module#OrdersModule"
+        loadChildren: "./modules/orders/orders.module#OrdersModule",
+        canActivate: [AuthGuard]
       },  {
         path: "inventory",
-        loadChildren: "./modules/inventory/inventory.module#InventoryModule"
+        loadChildren: "./modules/inventory/inventory.module#InventoryModule",
+        canActivate: [AuthGuard]
       }
     ]
   }

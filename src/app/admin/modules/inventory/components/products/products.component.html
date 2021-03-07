@@ -27,17 +27,17 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngIf="products.length>0">
-          <tr *ngFor="let product of products;let i=index">
+        <ng-container *ngIf="products?.data?.length>0">
+          <tr *ngFor="let product of products?.data;let i=index">
             <td>{{i+1}}</td>
             <td>{{product?.name}}</td>
             <td><img [src]="product?.image" [alt]="product?.name" /></td>
-            <td><button class="btn btn-danger" disabled>Remove</button>
+            <td><button class="btn btn-danger" (click)="deleteProduct(product?.product_id)">Remove</button>
           </tr>
         </ng-container>
-        <tr *ngIf="!products.length>0">
+        <tr *ngIf="!products?.length">
           <td colspan='4'>No Products available !</td>
-        </tr>
+        </tr> 
       </tbody>
     </table>
     <div class="text-center">

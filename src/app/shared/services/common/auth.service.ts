@@ -6,10 +6,10 @@ import { of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-
+  API_URL: string = "http://localhost/api";
   constructor(private httpSvc: HttpClient) { }
   doLogin(user) {
-    return this.httpSvc.post('https://reqres.in/api/login', user)
+    return this.httpSvc.post(`${this.API_URL}/user/auth`, user);
   }
   
 

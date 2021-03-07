@@ -1,5 +1,5 @@
 <div class="connect">
-    <div *ngIf="noInternetConnection">
+    <div *ngIf="!noInternetConnection">
         <div class="media">
             <div class="media-left">
                 <img width="20" src="assets/dist/img/cloud-outline.svg" alt="Connected" />
@@ -10,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="!noInternetConnection">
+    <div *ngIf="noInternetConnection">
         <div class="media">
             <div class="media-left">
                 <img width="20" src="assets/dist/img/cloud-offline-outline.svg" alt="Disconnected" />

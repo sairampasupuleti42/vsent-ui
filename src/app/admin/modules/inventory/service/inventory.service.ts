@@ -7,7 +7,7 @@ import { Inventory } from '../models/inventory';
   providedIn: 'root'
 })
 export class InventoryService {
-  API_URL: string = "http://localhost/api/";
+  API_URL: string = "http://localhost/api";
   product: Inventory.Product;
   constructor(private httpSvc: HttpClient) { }
   //Products
@@ -18,7 +18,7 @@ export class InventoryService {
     return this.httpSvc.post(`${this.API_URL}/product/update`, product);
   }
   fetchProducts() {
-    return this.httpSvc.get(`${this.API_URL}/products`)
+    return this.httpSvc.get(`${this.API_URL}/products`);
   }
   fetchProductById(id: number) {
     return this.httpSvc.get(`${this.API_URL}/product/${id}`);

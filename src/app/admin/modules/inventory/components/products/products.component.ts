@@ -14,8 +14,13 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit() {
     console.log('service init')
-    this.invSvc.mockProducts().subscribe((response: Inventory.Product[]) => {
-      this.products = response;
+    this.invSvc.fetchProducts().subscribe((response: any) => {
+      this.products = response?.data;
+    })
+  }
+  deleteProduct(id) {
+    this.invSvc.deleteProductById(id).subscribe(response => {
+      this.products.slice(id);
     })
   }
 

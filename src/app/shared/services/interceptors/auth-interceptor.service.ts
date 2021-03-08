@@ -14,7 +14,7 @@ export class AuthInterceptorService implements HttpInterceptor {
     return next.handle(
       req.clone(
         { setHeaders: { ANSHAI_VESTN, Authorization: `r,${token}` } }
-      )).pipe(retry(1),
+      )).pipe(
         tap((event: HttpEvent<any>) => {
 
           if (event instanceof HttpResponse && event.status === 200) {

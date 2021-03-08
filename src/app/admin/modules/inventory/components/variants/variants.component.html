@@ -2,45 +2,147 @@
   <div class="box-header with-border">
     <h3 class="box-title"></h3>
     <div class="box-tools">
-      <!-- <a class="btn btn-warning  btn-sm">
-
-      </a> -->
-      <a class="btn btn-info btn-sm">
+      <a class="btn btn-danger btn-sm" *ngIf="isAdd" (click)="isAdd=!isAdd">
+        Cancel
+      </a>
+      <a class="btn btn-info btn-sm" *ngIf="!isAdd" (click)="addVariant()">
         Add Variant
       </a>
     </div>
   </div>
   <div class="box-body">
-    <table id="lists" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th>S.No</th>
-          <th>
-            Name
-          </th>
-          <th>
-            Product
-          </th>
-          <th>
-            Action
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="variants.length>0">
-          <tr *ngFor="let variant of variants;let i=index">
-            <td>{{i+1}}</td>
-            <td>{{variant?.name}}</td>
-            <td><img [src]="variant?.product" [alt]="variant?.name" /></td>
-            <td><button class="btn btn-danger" disabled>Remove</button>
+    <ng-container *ngIf="!isAdd">
+      <table id="lists" class="table table-striped table-bordered" cellspacing="0" width="100%" *ngIf="variants">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Variant Name</th>
+            <th>Per Case</th>
+            <th style="text-align: center;">Price</th>
+            <th style="text-align: center;">Quantity</th>
+            <th style="text-align: center;">CGST</th>
+            <th style="text-align: center;">SGST</th>
+            <th style="text-align: center;">CESS</th>
+            <th style="text-align: center;">Margin</th>
+            <th style="text-align: center;">Actions</th>
           </tr>
-        </ng-container>
-        <tr *ngIf="!variants.length>0">
-          <td colspan='4'>No variants available !</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="text-center">
-    </div>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="variants?.length>0">
+            <tr *ngFor="let variant of variants;let i=index">
+              <td>{{i+1}}</td>
+              <td>{{variant?.product_name}}</td>
+              <td>{{variant?.variant_name}}</td>
+              <td>{{variant?.per_case}}</td>
+              <td>{{variant?.unit_price}}</td>
+              <td>{{ 'NA'}}</td>
+              <td>{{variant?.cgst_percentage}}</td>
+              <td>{{variant?.sgst_percentage}}</td>
+              <td>{{variant?.cess}}</td>
+              <td>{{variant?.margin_amount}}</td>
+              <td><button class="btn btn-danger btn-xs" (click)="deleteVariant(i,variant.Variant_id)">Remove</button>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div class="text-center" *ngIf="!variants">
+        <p class="text-danger">Variants not added !</p>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="isAdd">
+      <form [formGroup]="variantForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="variant_name">Variant Name</label>
+              <input type="text" id="variant_name" class="form-control" formControlName="variant_name" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <div *ngIf="products">
+                <label for="product_id">Select Product</label>
+                <select name="product_id" class="form-control" id="product_id" formControlName="product_id">
+                  <option value="">-- Select Product --</option>
+                  <option [value]="product.product_id" *ngFor="let product of products"
+                    [innerHTML]="product.product_name"></option>
+                </select>
+              </div>
+              <div *ngIf="!products">
+                Products not available ! Please add <a routerLink="/admin/inventory/products">here</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="per_case">Per Case [Number of Units]</label>
+              <input type="text" id="per_case" class="form-control" formControlName="per_case" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="case_price">Case Price</label>
+              <input type="text" id="case_price" class="form-control" formControlName="case_price" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="unit_price">Single Unit Price</label>
+              <input type="text" id="unit_price" class="form-control" formControlName="unit_price" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="cgst_percentage">CGST</label>
+              <input type="text" id="cgst_percentage" class="form-control" formControlName="cgst_percentage" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="sgst_percentage">SGST</label>
+              <input type="text" id="sgst_percentage" class="form-control" formControlName="sgst_percentage" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="cess">CESS</label>
+              <input type="text" id="cess" class="form-control" formControlName="cess" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="margin_amount">Margin</label>
+              <input type="text" id="margin_amount" class="form-control" formControlName="margin_amount" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="transport_amount">Transport</label>
+              <input type="text" id="transport_amount" class="form-control" formControlName="transport_amount" />
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="incentive_amount">Incentive Amount</label>
+              <input type="text" id="incentive_amount" class="form-control" formControlName="incentive_amount" />
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-success pull-right" (click)="saveVariant()">Save</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
   </div>
 </div>

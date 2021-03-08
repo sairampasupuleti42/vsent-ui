@@ -8,12 +8,14 @@ import { DailySettingsComponent } from './components/daily-settings/daily-settin
 import { UpdateInventoryComponent } from './components/update-inventory/update-inventory.component';
 import { InventoryChangesComponent } from './components/inventory-changes/inventory-changes.component';
 import { CommissionsComponent } from './components/commissions/commissions.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [ProductsComponent, VariantsComponent, DailySettingsComponent, UpdateInventoryComponent, InventoryChangesComponent, CommissionsComponent],
   imports: [
     CommonModule,
-    InventoryRoutingModule
+    InventoryRoutingModule,
+    SharedModule
   ]
 })
 export class InventoryModule { }

@@ -19,3 +19,6 @@
 .layout-boxed {
   min-height: 100vh important !important;
 }
+.price_lbl {
+  font-size: 1.125rem;
+}

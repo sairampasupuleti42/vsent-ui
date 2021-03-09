@@ -1,0 +1,49 @@
+<div class="box box-info">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      Users
+    </h3>
+    <div class="box-tools">
+      <a class="btn btn-info btn-sm" routerLink="/account/users/register">
+        Add User
+      </a>
+    </div>
+  </div>
+  <div class="box-body">
+
+    <table id="lists" class="table table-responsive table-bordered" width="100%" *ngIf="users">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>
+            Name
+          </th>
+          <th>
+            Email
+          </th>
+          <th>
+            Role
+          </th>
+          <th>
+            Action
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngIf="users?.length>0">
+          <tr *ngFor="let user of users;let i=index">
+            <td>{{i+1}}</td>
+            <td>{{user?.name}}</td>
+            <td>{{user?.email}}</td>
+            <td>{{user?.role}}</td>
+            <td>
+              <ng-container *ngIf="user?.role=='ADMIN'">
+                <button class="btn btn-danger" (click)="deleteUser(i,user.user_id)">Remove</button>
+              </ng-container>
+          </tr>
+        </ng-container>
+
+      </tbody>
+    </table>
+  </div>
+</div>

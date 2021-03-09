@@ -1,3 +1,138 @@
-<p>
-  delivery-order works!
-</p>
+<div class="box box-danger" data-select2-id="16">
+  <div class="box-header with-border">
+    <h3 class="box-title">Delivery Order</h3>
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-success" (click)="confirmOrder()"><i class="fa fa-check"></i> Confirm Order
+      </button>
+      <button type="button" class="btn btn-primary" (click)="print()"><i class="fa fa-print"></i> Print </button>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <form [formGroup]="orderForm">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="driver_id">Select Driver</label>
+            <select id="driver_id" class="form-control" formControlName="driver_id">
+             
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="allow_free_items">Allow Free Items</label>
+            <select id="allow_free_items" class="form-control" formControlName="allow_free_items">
+              <option [value]="'YES'" [selected]="true">Yes</option>
+              <option [value]="'NO'">No</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+      </div>
+      <ng-container formArrayName="order_contents">
+        <ng-container *ngFor="let item of orderForm.get('order_contents')['controls']; let i = index;" class="row">
+          <ng-container [formGroupName]="i">
+            <div class="col-md-4">
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.variant_id.errors}">
+                <select id="variant_id" class="form-control" formControlName="variant_id" (blur)="onBlur()">
+                  <option disabled value="undefined"> Select Item </option>
+                  <ng-container *ngIf="variants">
+                    <option [value]="variant.variant_id" *ngFor="let variant of variants"
+                      [innerHTML]="variant.variant_name"></option>
+                  </ng-container>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.cases.errors}">
+                <input formControlName="cases" class="form-control" placeholder="Cases" (blur)="onBlur()">
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.bottles.errors}">
+                <input formControlName="bottles" class="form-control danger-border" placeholder="Bottles"
+                  (blur)="onBlur()">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <button type="button" class="btn btn-sm btn-danger" *ngIf="toggleDelBtn" (click)="deleteItem(i)"> <i
+                    class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-sm btn-primary" (click)="addItem()"> <i
+                    class="fa fa-plus"></i></button>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <div class="row">
+        <div class="col-md-12">
+          <h4 class="text-center">Counter Order Contents</h4>
+          <table class="table table-bordered table-responsive">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Item</th>
+                <th>Cases</th>
+                <th>Bottles</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="this.orderForm.value.order_contents">
+                <tr *ngFor="let c of this.orderForm.value.order_contents;let i=index;">
+                  <td>{{i+1}}</td>
+                  <td><span [innerHTML]="fetchName(c.variant_id)"></span></td>
+                  <td><span [innerHTML]="c.cases"></span></td>
+                  <td><span [innerHTML]="c.bottles"></span></td>
+                  <td><span [innerHTML]="c.amount"></span></td>
+                </tr>
+              </ng-container>
+              <tr>
+                <td colspan="5">
+                  <p></p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="discount_amount">Discount Amount</label>
+            <input type="text" id="discount_amount" class="form-control" formControlName="discount_amount"
+              (blur)="calcDiscount()" />
+          </div>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-6">
+          <div class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <th style="width:50%">Total Amount:</th>
+                  <td>{{totalAmountLbl}}</td>
+                </tr>
+                <tr>
+                  <th>Discount Amount</th>
+                  <td>{{this.orderForm.value.discount_amount}}</td>
+                </tr>
+                <tr>
+                  <th>Final Amount:</th>
+                  <td><span [innerHTML]="finalAmountLbl"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="box-footer">
+  </div>
+</div>

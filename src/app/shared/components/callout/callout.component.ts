@@ -8,18 +8,18 @@ import { Subscription } from 'rxjs';
 })
 export class CalloutComponent implements OnInit {
   @Input()
-  message: any;
+  errors: any;
 
 
   ngOnInit() {
-    this.message = null;
+    this.errors = null;
   }
   ngOnChanges(change: SimpleChanges) {
     if (change['currentValue']) {
-      this.message.text = change['currentValue'];
+      this.errors.text = change['currentValue'];
     }
     if (!navigator.onLine) {
-      this.message = {
+      this.errors = {
         text: "You're in offline",
         type: 'danger'
       }

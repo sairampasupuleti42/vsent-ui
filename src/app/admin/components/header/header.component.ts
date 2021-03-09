@@ -16,9 +16,9 @@ export class HeaderComponent implements OnInit {
       title: "Orders",
       subMenu: true,
       items: [
-        { path: "orders/counter-order", title: "Counter Order" },
-        { path: "orders/delivery-order", title: "Delivery Order" },
-        { path: "orders/unpaid-order", title: "Unpaid Order" },
+        { path: "orders/counter", title: "Counter Order" },
+        { path: "orders/delivery", title: "Delivery Order" },
+        { path: "orders/unpaid", title: "Unpaid Orders" },
         { path: "orders/daily-report", title: "Daily Report" },
         { path: "orders", title: "All Orders" }
       ]
@@ -32,12 +32,17 @@ export class HeaderComponent implements OnInit {
         { path: "inventory/commissions", title: "Commissions" },
         { path: "inventory/daily-settings", title: "Daily Settings" },
         { path: "inventory/inventory-changes", title: "Inventory Changes" },
-        { path: "inventory/update-inventory", title: "Update Inventory" },
-       
-
+        { path: "inventory/update-inventory", title: "Update Inventory" }
       ]
-
     },
+    {
+      title: "Manage Users",
+      subMenu: true,
+      items: [
+        { path: "/account/users/list", title: "All Users" },
+        { path: "/account/users/register", title: "Add New User" }
+      ]
+    }
     ]
   }
   logout() {

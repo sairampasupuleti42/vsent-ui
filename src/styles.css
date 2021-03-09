@@ -16,9 +16,15 @@
   right: 0;
   width: 250px;
 }
+
 .layout-boxed {
   min-height: 100vh important !important;
 }
+
 .price_lbl {
   font-size: 1.125rem;
+}
+
+.my-15 {
+  margin: 15px 0 15px 0;
 }

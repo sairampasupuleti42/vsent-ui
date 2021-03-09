@@ -9,7 +9,8 @@ import { DailyReportComponent } from './components/daily-report/daily-report.com
 import { OrdersComponent } from './components/orders/orders.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
-  declarations: [CounterOrderComponent, DeliveryOrderComponent, UnpaidOrderComponent, DailyReportComponent, OrdersComponent],
+  declarations: [CounterOrderComponent, DeliveryOrderComponent,
+    UnpaidOrderComponent, DailyReportComponent, OrdersComponent],
   imports: [
     CommonModule,
     OrdersRoutingModule,

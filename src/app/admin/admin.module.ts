@@ -9,7 +9,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AsideComponent } from './components/aside/aside.component';
 
 @NgModule({
-  declarations: [LayoutComponent, HeaderComponent, FooterComponent, DashboardComponent, AsideComponent],
+  declarations: [ DashboardComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

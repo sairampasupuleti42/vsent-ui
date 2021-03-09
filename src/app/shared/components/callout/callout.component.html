@@ -1,5 +1,5 @@
-<ng-container *ngIf="message">
-  <div class="callout " [ngClass]="'callout-'+ message.type">
-    <p [innerHTML]="message.text | capitalize"></p>
+<ng-container *ngIf="errors">
+  <div class="callout " [ngClass]="'callout-'+ errors.type">
+    <p [innerHTML]="errors.text | capitalize"></p>
   </div>
 </ng-container>

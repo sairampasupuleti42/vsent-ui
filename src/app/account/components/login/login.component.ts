@@ -15,8 +15,9 @@ import { TokenService } from 'src/app/shared/services/common/token.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   message: any;
-  submitted: boolean;
+  submitted: boolean = false;
   returnUrl: any;
+  errors: any = "";
   constructor(private fb: FormBuilder,
     private authSvc: AuthService, private router: Router,
     private route: ActivatedRoute, private tokenSvc: TokenService) {
@@ -41,20 +42,20 @@ export class LoginComponent implements OnInit {
       return;
     }
     if (!!this.loginForm.valid) {
-      this.authSvc.doLogin(this.loginForm.value).pipe(catchError((error: any) => {
-        this.message = {
-          text: error.error,
-          type: 'danger'
-        };
-        return of([])
-      })).subscribe((response: any) => {
+      this.authSvc.doLogin(this.loginForm.value).pipe().subscribe((response: any) => {
         if (response.token) {
+          this.errors = { text: "Login success", type: "success" };
           this.tokenSvc.saveToken(response.token);
           this.tokenSvc.saveUser(response);
           this.router.navigate([this.returnUrl]);
+        } else {
+          this.errors = { text: response.msg, type: "danger" };
         }
       })
     }
+  }
+  onBlur() {
+    this.submitted = false;
   }
 
 

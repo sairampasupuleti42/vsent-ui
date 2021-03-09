@@ -8,7 +8,18 @@ export class OrderService {
   API: any = "http://localhost/api";
 
   constructor(private httpSvc: HttpClient) { }
-  counterOrderVariants() {
-    return this.httpSvc.get(`${this.API}/orders/counter-order/variants`);
+  orderVariants() {
+    return this.httpSvc.get(`${this.API}/order/variants`);
+  }
+  addOrder(data) {
+    return this.httpSvc.post(
+      `${this.API}/orders/order`, data
+    )
+  }
+  fetchOrders() {
+    return this.httpSvc.get(`${this.API}/orders`);
+  }
+  fetchUnpaidOrders() {
+    return this.httpSvc.get(`${this.API}/orders/unpaid`);
   }
 }

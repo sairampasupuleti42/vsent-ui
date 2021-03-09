@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'vs-dashboard',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  stats: any = {
+  };
 
-  constructor() { }
+  constructor(private adminSvc: AdminService) { }
 
   ngOnInit() {
+    this.refresh();
+  }
+  refresh() {
+    this.adminSvc.fetchStats().subscribe((response: any) => {
+      if (response.data) {
+        this.stats = response.data
+      }
+    });
   }
 
 }

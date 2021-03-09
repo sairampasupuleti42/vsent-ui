@@ -1,7 +1,6 @@
 <div class="box box-danger" data-select2-id="16">
   <div class="box-header with-border">
     <h3 class="box-title">Counter Order</h3>
-
     <div class="box-tools pull-right">
       <button type="button" class="btn btn-success" (click)="confirmOrder()"><i class="fa fa-check"></i> Confirm Order
       </button>
@@ -10,7 +9,7 @@
   </div>
   <!-- /.box-header -->
   <div class="box-body">
-    <form [formGroup]="counterOrderForm">
+    <form [formGroup]="orderForm">
       <div class="row">
         <div class="col-md-4">
           <div class="form-group">
@@ -36,8 +35,8 @@
           <div class="form-group">
             <label for="allow_free_items">Allow Free Items</label>
             <select id="allow_free_items" class="form-control" formControlName="allow_free_items">
-              <option value="YES" [selected]="true">Yes</option>
-              <option value="NO">No</option>
+              <option [value]="'YES'" [selected]="true">Yes</option>
+              <option [value]="'NO'">No</option>
             </select>
           </div>
         </div>
@@ -45,8 +44,8 @@
           <div class="form-group">
             <label for="payment_status">Payment Status</label>
             <select id="payment_status" class="form-control" formControlName="payment_status">
-              <option value="PAID" [selected]="true">Paid</option>
-              <option value="CREDIT">Credit</option>
+              <option [value]="'PAID'" [selected]="true">Paid</option>
+              <option [value]="'CREDIT'">Credit</option>
             </select>
           </div>
         </div>
@@ -54,33 +53,35 @@
           <div class="form-group">
             <label for="payment_type">Payment Type</label>
             <select id="payment_type" class="form-control" formControlName="payment_type">
-              <option value="CASH" [selected]="true">Cash</option>
-              <option value="CARD">Card</option>
+              <option [value]="'CASH'" [selected]="true">Cash</option>
+              <option [value]="'CARD'">Card</option>
             </select>
           </div>
         </div>
       </div>
-      <ng-container formArrayName="counter_order_contents">
-        <ng-container *ngFor="let item of counterOrderForm.get('counter_order_contents')['controls']; let i = index;"
-          class="row">
+      <ng-container formArrayName="order_contents">
+        <ng-container *ngFor="let item of orderForm.get('order_contents')['controls']; let i = index;" class="row">
           <ng-container [formGroupName]="i">
             <div class="col-md-4">
-              <div class="form-group">
-                <select id="variant_id" class="form-control" formControlName="variant_id">
-                  <option value="" [selected]="true">-- Select Item --</option>
-                  <option [value]="variant.variant_id" *ngFor="let variant of variants"
-                    [innerHTML]="variant.variant_name"></option>
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.variant_id.errors}">
+                <select id="variant_id" class="form-control" formControlName="variant_id" (blur)="onBlur()">
+                  <option disabled value="undefined"> Select Item </option>
+                  <ng-container *ngIf="variants">
+                    <option [value]="variant.variant_id" *ngFor="let variant of variants"
+                      [innerHTML]="variant.variant_name"></option>
+                  </ng-container>
                 </select>
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
-                <input formControlName="cases" class="form-control" placeholder="Cases">
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.cases.errors}">
+                <input formControlName="cases" class="form-control" placeholder="Cases" (blur)="onBlur()">
               </div>
             </div>
             <div class="col-md-3">
-              <div class="form-group">
-                <input formControlName="bottles" class="form-control" placeholder="Bottles">
+              <div class="form-group" [ngClass]="{'has-error': submitted && of[i].controls.bottles.errors}">
+                <input formControlName="bottles" class="form-control danger-border" placeholder="Bottles"
+                  (blur)="onBlur()">
               </div>
             </div>
             <div class="col-md-2">
@@ -108,10 +109,10 @@
               </tr>
             </thead>
             <tbody>
-              <ng-container *ngIf="coc">
-                <tr *ngFor="let c of coc;let i=index;">
+              <ng-container *ngIf="this.orderForm.value.order_contents">
+                <tr *ngFor="let c of this.orderForm.value.order_contents;let i=index;">
                   <td>{{i+1}}</td>
-                  <td><span [innerHTML]="c.variant_name"></span></td>
+                  <td><span [innerHTML]="fetchName(c.variant_id)"></span></td>
                   <td><span [innerHTML]="c.cases"></span></td>
                   <td><span [innerHTML]="c.bottles"></span></td>
                   <td><span [innerHTML]="c.amount"></span></td>
@@ -130,7 +131,8 @@
         <div class="col-md-6">
           <div class="form-group">
             <label for="discount_amount">Discount Amount</label>
-            <input type="text" id="discount_amount" class="form-control" formControlName="discount_amount" />
+            <input type="text" id="discount_amount" class="form-control" formControlName="discount_amount"
+              (blur)="calcDiscount()" />
           </div>
         </div>
       </div>
@@ -141,25 +143,23 @@
               <tbody>
                 <tr>
                   <th style="width:50%">Total Amount:</th>
-                  <td>25000</td>
+                  <td>{{totalAmountLbl}}</td>
                 </tr>
                 <tr>
                   <th>Discount Amount</th>
-                  <td>500</td>
+                  <td>{{this.orderForm.value.discount_amount}}</td>
                 </tr>
                 <tr>
                   <th>Final Amount:</th>
-                  <td>24500</td>
+                  <td><span [innerHTML]="finalAmountLbl"></span></td>
                 </tr>
               </tbody>
             </table>
           </div>
-
         </div>
       </div>
     </form>
   </div>
   <div class="box-footer">
-
   </div>
 </div>

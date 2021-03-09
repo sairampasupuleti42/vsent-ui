@@ -8,7 +8,7 @@ import { InventoryService } from '../../service/inventory.service';
   styleUrls: ['./variants.component.css']
 })
 export class VariantsComponent implements OnInit {
-  variants: Inventory.Variant[];
+  variants: Inventory.Variant[] = [];
   isAdd: boolean = false;
   variantForm: FormGroup;
   products: any;
@@ -44,6 +44,7 @@ export class VariantsComponent implements OnInit {
   saveVariant() {
     this.invSvc.insertVariant(this.variantForm.value).subscribe((response: any) => {
       if (response) {
+        window.location.reload();
         this.variants.push(response.data);
         this.variantForm.reset();
       }

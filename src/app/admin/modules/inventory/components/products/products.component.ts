@@ -15,14 +15,17 @@ export class ProductsComponent implements OnInit {
   constructor(private fb: FormBuilder, private invSvc: InventoryService) { }
 
   ngOnInit() {
-    this.products = [];
+    this.getProducts();
     this.productForm = this.fb.group({
       product_name: new FormControl(''),
       product_image: new FormControl('')
-    })
+    });
+  }
+  getProducts() {
+    this.products = [];
     this.invSvc.fetchProducts().subscribe((response: any) => {
       this.products = (response) ? response.data : [];
-    })
+    });
   }
   addProduct() {
     this.isAdd = true;
@@ -30,10 +33,8 @@ export class ProductsComponent implements OnInit {
   saveProduct() {
     this.invSvc.insertProduct(this.productForm.value).subscribe((response: any) => {
       if (response) {
-        window.location.reload();
-        this.products.push(response.data);
         this.productForm.reset();
-        
+        this.getProducts();
       }
       this.isAdd = false;
     });

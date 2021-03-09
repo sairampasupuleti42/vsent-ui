@@ -16,13 +16,16 @@ export class DeliveryOrderComponent implements OnInit {
   totalAmountLbl: string;
   finalAmountLbl: string;
   submitted: boolean = false;
+  drivers: any =[];
 
   constructor(private fb: FormBuilder, private orderSvc: OrderService) { }
   ngOnInit() {
     this.toggleDelBtn = false;
     this.orderSvc.orderVariants().subscribe((response: any) => {
       this.variants = response.data;
-    }); this.createForm();
+    }); 
+    this.loadDrivers();
+    this.createForm();
   }
   createForm() {
     this.orderForm = this.fb.group({
@@ -68,7 +71,9 @@ export class DeliveryOrderComponent implements OnInit {
       console.log(this.of['order_contents'])
       this.orderSvc.addOrder(this.orderForm.value).subscribe((response: any) => {
         console.log('Success');
+        this.submitted = false;
         this.orderForm.reset();
+        
       })
     }
   }
@@ -96,5 +101,10 @@ export class DeliveryOrderComponent implements OnInit {
   }
   calcDiscount() {
     this.finalAmountLbl = (parseFloat(this.totalAmountLbl) - parseFloat(this.orderForm.value.discount_amount)).toFixed(2)
+  }
+  loadDrivers() {
+    this.orderSvc.loadDrivers().subscribe((response: any) => {
+      this.drivers = response.data;
+    });
   }
 }

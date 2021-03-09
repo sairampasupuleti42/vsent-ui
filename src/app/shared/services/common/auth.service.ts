@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { environment as e } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  API_URL: string = "http://localhost/api";
   constructor(private httpSvc: HttpClient) { }
   doLogin(user) {
-    return this.httpSvc.post(`${this.API_URL}/user/auth`, user);
+    return this.httpSvc.post(`${e.apiUrl}/user/auth`, user);
   }
-  
+
 
 }

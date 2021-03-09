@@ -62,6 +62,7 @@ export class CounterOrderComponent implements OnInit {
       amount: new FormControl('')
     });
   }
+  
   confirmOrder() {
     this.submitted = true;
     //console.log([0].controls.cases.errors);
@@ -71,8 +72,8 @@ export class CounterOrderComponent implements OnInit {
     } else {
       console.log(this.of['order_contents'])
       this.orderSvc.addOrder(this.orderForm.value).subscribe((response: any) => {
-        console.log('Success');
         this.orderForm.reset();
+        this.submitted = false;
       })
     }
   }

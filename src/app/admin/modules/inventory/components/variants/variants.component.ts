@@ -14,13 +14,7 @@ export class VariantsComponent implements OnInit {
   products: any;
   constructor(private fb: FormBuilder, private invSvc: InventoryService) { }
   ngOnInit() {
-    this.invSvc.fetchVariants().subscribe((response: any) => {
-      if (response) {
-        this.variants = response.data.variants;
-        this.products = response.data.products;
-      }
-      this.createForm();
-    });
+    this.getVariants();
   }
   createForm() {
     this.variantForm = this.fb.group({
@@ -41,12 +35,20 @@ export class VariantsComponent implements OnInit {
   addVariant() {
     this.isAdd = true;
   }
+  getVariants() {
+    this.invSvc.fetchVariants().subscribe((response: any) => {
+      if (response) {
+        this.variants = response.data.variants;
+        this.products = response.data.products;
+      }
+      this.createForm();
+    });
+  }
   saveVariant() {
     this.invSvc.insertVariant(this.variantForm.value).subscribe((response: any) => {
       if (response) {
-        window.location.reload();
-        this.variants.push(response.data);
         this.variantForm.reset();
+        this.getVariants();
       }
       this.isAdd = false;
     });

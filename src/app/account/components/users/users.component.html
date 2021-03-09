@@ -37,7 +37,7 @@
             <td>{{user?.email}}</td>
             <td>{{user?.role}}</td>
             <td>
-              <ng-container *ngIf="user?.role=='ADMIN'">
+              <ng-container *ngIf="user?.role!=='ADMIN'">
                 <button class="btn btn-danger" (click)="deleteUser(i,user.user_id)">Remove</button>
               </ng-container>
           </tr>

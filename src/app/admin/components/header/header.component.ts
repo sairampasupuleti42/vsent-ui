@@ -9,9 +9,11 @@ import { TokenService } from 'src/app/shared/services/common/token.service';
 })
 export class HeaderComponent implements OnInit {
   navMenus: any = [];
+  tokenData: any;
   constructor(private tokenSvc: TokenService, private router: Router) { }
 
   ngOnInit() {
+    this.tokenData = this.tokenSvc.getUser();
     this.navMenus = [{
       title: "Orders",
       subMenu: true,

@@ -1,46 +1,44 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { environment as e } from 'src/environments/environment';
 import { Inventory } from '../models/inventory';
-
 @Injectable({
   providedIn: 'root'
 })
 export class InventoryService {
-  API_URL: string = "http://localhost/api";
   product: Inventory.Product;
   constructor(private httpSvc: HttpClient) { }
   //Products
   insertProduct(product?: Inventory.Product) {
-    return this.httpSvc.post(`${this.API_URL}/product/add`, product);
+    return this.httpSvc.post(`${e.apiUrl}/product/add`, product);
   }
   putProduct(product?: Inventory.Product) {
-    return this.httpSvc.post(`${this.API_URL}/product/update`, product);
+    return this.httpSvc.post(`${e.apiUrl}/product/update`, product);
   }
   fetchProducts() {
-    return this.httpSvc.get(`${this.API_URL}/products`);
+    return this.httpSvc.get(`${e.apiUrl}/products`);
   }
   fetchProductById(id: number) {
-    return this.httpSvc.get(`${this.API_URL}/product/${id}`);
+    return this.httpSvc.get(`${e.apiUrl}/product/${id}`);
   }
   deleteProductById(id: number) {
-    return this.httpSvc.get(`${this.API_URL}/product/delete/${id}`);
+    return this.httpSvc.get(`${e.apiUrl}/product/delete/${id}`);
   }
   //Variants
   insertVariant(variant?: Inventory.Variant) {
-    return this.httpSvc.post(`${this.API_URL}/variant/add`, variant);
+    return this.httpSvc.post(`${e.apiUrl}/variant/add`, variant);
   }
   putVariant(variant?: Inventory.Variant) {
-    return this.httpSvc.post(`${this.API_URL}/variant/update`, variant);
+    return this.httpSvc.post(`${e.apiUrl}/variant/update`, variant);
   }
   fetchVariants() {
-    return this.httpSvc.get(`${this.API_URL}/variants`)
+    return this.httpSvc.get(`${e.apiUrl}/variants`)
   }
   fetchVariantById(id: number) {
-    return this.httpSvc.get(`${this.API_URL}/variant/${id}`);
+    return this.httpSvc.get(`${e.apiUrl}/variant/${id}`);
   }
   deleteVariantById(id: number) {
-    return this.httpSvc.get(`${this.API_URL}/variant/delete/${id}`);
+    return this.httpSvc.get(`${e.apiUrl}/variant/delete/${id}`);
   }
 
 

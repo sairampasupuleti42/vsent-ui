@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
     }
     if (!!this.loginForm.valid) {
       this.authSvc.doLogin(this.loginForm.value).pipe().subscribe((response: any) => {
-        if (response.token) {
+        if (response.data.token) {
           this.errors = { text: "Login success", type: "success" };
-          this.tokenSvc.saveToken(response.token);
-          this.tokenSvc.saveUser(response);
+          this.tokenSvc.saveToken(response.data.token);
+          this.tokenSvc.saveUser(response.data);
           this.router.navigate([this.returnUrl]);
         } else {
           this.errors = { text: response.msg, type: "danger" };

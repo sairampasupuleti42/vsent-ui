@@ -2,8 +2,7 @@
   <div class="box-header with-border">
     <h3 class="box-title">Delivery Order</h3>
     <div class="box-tools pull-right">
-      <button type="button" class="btn btn-success" (click)="confirmOrder()"><i class="fa fa-check"></i> Confirm Order
-      </button>
+      <a routerLink="/admin/orders" class="btn btn-warning px-10"> Load Order</a>
       <button type="button" class="btn btn-primary" (click)="print()"><i class="fa fa-print"></i> Print </button>
     </div>
   </div>
@@ -15,7 +14,11 @@
           <div class="form-group">
             <label for="driver_id">Select Driver</label>
             <select id="driver_id" class="form-control" formControlName="driver_id">
-             
+              <option disabled value="undefined"> Select Driver </option>
+              <ng-container *ngIf="drivers">
+                <option [value]="driver.user_id" *ngFor="let driver of drivers"
+                  [innerHTML]="driver.name"></option>
+              </ng-container>
             </select>
           </div>
         </div>
@@ -134,5 +137,7 @@
     </form>
   </div>
   <div class="box-footer">
+    <button type="button" class="btn btn-success" (click)="confirmOrder()"><i class="fa fa-check"></i> Confirm Order
+    </button>
   </div>
 </div>

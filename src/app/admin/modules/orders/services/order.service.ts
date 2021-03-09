@@ -1,25 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment as e } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
-  API: any = "http://localhost/api";
-
   constructor(private httpSvc: HttpClient) { }
   orderVariants() {
-    return this.httpSvc.get(`${this.API}/order/variants`);
+    return this.httpSvc.get(`${e.apiUrl}/order/variants`);
   }
   addOrder(data) {
     return this.httpSvc.post(
-      `${this.API}/orders/order`, data
+      `${e.apiUrl}/orders/order`, data
     )
   }
   fetchOrders() {
-    return this.httpSvc.get(`${this.API}/orders`);
+    return this.httpSvc.get(`${e.apiUrl}/orders`);
   }
   fetchUnpaidOrders() {
-    return this.httpSvc.get(`${this.API}/orders/unpaid`);
+    return this.httpSvc.get(`${e.apiUrl}/orders/unpaid`);
+  }
+  loadDrivers() {
+    return this.httpSvc.get(`${e.apiUrl}/users/drivers`);
   }
 }

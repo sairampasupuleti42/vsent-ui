@@ -18,23 +18,23 @@ export class HeaderComponent implements OnInit {
       title: "Orders",
       subMenu: true,
       items: [
-        { path: "orders/counter", title: "Counter Order" },
-        { path: "orders/delivery", title: "Delivery Order" },
-        { path: "orders/unpaid", title: "Unpaid Orders" },
-        { path: "orders/daily-report", title: "Daily Report" },
-        { path: "orders", title: "All Orders" }
+        { path: "/admin/orders/counter", title: "Counter Order" },
+        { path: "/admin/orders/delivery", title: "Delivery Order" },
+        { path: "/admin/orders/unpaid", title: "Unpaid Orders" },
+        { path: "/admin/orders/daily-report", title: "Daily Report" },
+        { path: "/admin/orders", title: "All Orders" }
       ]
 
     }, {
       title: "Inventory",
       subMenu: true,
       items: [
-        { path: "inventory/products", title: "Products" },
-        { path: "inventory/variants", title: "Variants" },
-        { path: "inventory/commissions", title: "Commissions" },
-        { path: "inventory/daily-settings", title: "Daily Settings" },
-        { path: "inventory/inventory-changes", title: "Inventory Changes" },
-        { path: "inventory/update-inventory", title: "Update Inventory" }
+        { path: "/admin/inventory/products", title: "Products" },
+        { path: "/admin/inventory/variants", title: "Variants" },
+        { path: "/admin/inventory/commissions", title: "Commissions" },
+        { path: "/admin/inventory/daily-settings", title: "Daily Settings" },
+        { path: "/admin/inventory/inventory-changes", title: "Inventory Changes" },
+        { path: "/admin/inventory/update-inventory", title: "Update Inventory" }
       ]
     },
     {
@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit {
   }
   logout() {
     this.tokenSvc.signOut();
-    this.router.navigate(['account/login'])
+    this.router.navigate(['/account/login'])
   }
 
 }

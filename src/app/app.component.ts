@@ -23,7 +23,7 @@ export class AppComponent {
     this.router.events.subscribe(value => {
       this.isLoginPage = router.url.toString().endsWith('/login');
       this.dom.body.className = (this.isLoginPage) ?
-        'hold-transition login-page' : 'hold-transition layout-boxed skin-red';
+        'hold-transition login-page' : 'hold-transition skin-black-light';
 
     });
   }

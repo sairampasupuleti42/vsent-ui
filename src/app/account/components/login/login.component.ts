@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['admin']);
     }
     this.loginForm = this.fb.group({
-      email: new FormControl('eve.holt@reqres.in', Validators.required),
+      email: new FormControl('eve.holt@vsent.in', Validators.required),
       password: new FormControl('cityslicka', Validators.required),
       req_id: "login"
     });

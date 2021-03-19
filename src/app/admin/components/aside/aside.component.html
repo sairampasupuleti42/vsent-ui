@@ -15,7 +15,7 @@
           </span>
         </a>
         <ul class="treeview-menu" style="display: block;" *ngIf="menu.subMenu">
-          <li *ngFor="let item of menu.items">
+          <li *ngFor="let item of menu.items" [routerLinkActive]="['active']"[routerLinkActiveOptions]="{exact:true}">
             <a [routerLink]="item.path" [title]="item.title" [innerHTML]="item.title">
               <i class="fa fa-circle-o"></i>
             </a>

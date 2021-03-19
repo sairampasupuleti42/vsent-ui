@@ -81,7 +81,7 @@ export class DeliveryOrderComponent implements OnInit {
     window.print();
   }
   fetchName(vId) {
-    const n = this.variants.filter(v => (v.variant_id == vId));
+    const n = this.variants && this.variants.filter(v => (v.variant_id == vId));
     return (n[0]) ? n[0].variant_name : "";
   }
   onBlur() {

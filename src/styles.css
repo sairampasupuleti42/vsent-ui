@@ -52,3 +52,16 @@ label {
   font-weight: 600 !important;
   letter-spacing: 2px;
 }
+
+.navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
+  border: 1px solid #d2d6de;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header {
+  background-color: #fff;
+}
+.navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
+  color: #999;
+}
+.treeview-menu>li.active{
+  background-color: #d2d6de;
+}

@@ -1,4 +1,4 @@
-@import url("assets/bower_components/bootstrap/dist/css/bootstrap.min.css");
+@import url("assets/bower_components/bootstrap/dist/css/bootstrap.css");
 @import url("assets/bower_components/font-awesome/css/font-awesome.min.css");
 @import url("assets/bower_components/Ionicons/css/ionicons.min.css");
 @import url("assets/dist/css/AdminLTE.min.css");
@@ -25,12 +25,12 @@ h6 {
   font-weight: 500;
 }
 
-.connect {
+/* .connect {
   position: absolute;
   bottom: 0;
   right: 0;
   width: 250px;
-}
+} */
 
 .layout-boxed {
   min-height: 100vh important !important;
@@ -82,4 +82,7 @@ label {
 .req-field {
   color: indianred;
   text-align: left;
+}
+.sort-th {
+  cursor: pointer !important;
 }

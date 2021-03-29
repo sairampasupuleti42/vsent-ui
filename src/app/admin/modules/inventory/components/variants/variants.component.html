@@ -1,6 +1,14 @@
 <div class="box box-info">
   <div class="box-header with-border">
-    <h3 class="box-title"></h3>
+    <h3 class="box-title">
+      <div class="input-group input-group-sm hidden-xs" style="width: 180px;">
+        <input type="text" name="table_search" class="form-control pull-right" (keyup)="onFilterChange()"
+          [(ngModel)]="filterString" placeholder="Search variant">
+        <div class="input-group-btn">
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+    </h3>
     <div class="box-tools">
       <a class="btn btn-danger btn-sm" *ngIf="isAdd" (click)="isAdd=!isAdd">
         Cancel
@@ -16,8 +24,16 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Product Name</th>
-            <th>Variant Name</th>
+            <th class="sort-th" (click)="sortFn('product_name')">
+              Product Name
+              <span *ngIf="sortType == 'product_name' && !sortReverse" class="fa fa-caret-down"></span>
+              <span *ngIf="sortType == 'product_name' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
+            <th class="sort-th" (click)="sortFn('varinat_name')">
+              Variant Name
+              <span *ngIf="sortType == 'varinat_name' && !sortReverse" class="fa fa-caret-down"></span>
+              <span *ngIf="sortType == 'varinat_name' && sortReverse" class="fa fa-caret-up"></span>
+            </th>
             <th>Per Case</th>
             <th style="text-align: center;">Price</th>
             <th style="text-align: center;">Quantity</th>
@@ -29,8 +45,8 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="variants?.length>0">
-            <tr *ngFor="let variant of variants;let i=index">
+          <ng-container *ngIf="filtered?.length>0">
+            <tr *ngFor="let variant of filtered;let i=index;">
               <td>{{i+1}}</td>
               <td>{{variant?.product_name}}</td>
               <td>{{variant?.variant_name}}</td>
@@ -49,7 +65,6 @@
       <div class="text-center" *ngIf="!variants">
         <p class="text-danger">Variants not added !</p>
       </div>
-   
     </ng-container>
     <ng-container *ngIf="isAdd">
       <form [formGroup]="variantForm">

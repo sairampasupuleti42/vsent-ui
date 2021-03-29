@@ -13,7 +13,7 @@ import { AsideComponent } from './components/aside/aside.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class AdminModule { }

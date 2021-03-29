@@ -12,6 +12,10 @@ export class ProductsComponent implements OnInit {
   products: Inventory.Product[];
   isAdd: boolean = false;
   productForm: FormGroup;
+  filterString = "";
+  filtered;
+  sortType: any;
+  sortReverse: any;
   constructor(private fb: FormBuilder, private invSvc: InventoryService) { }
 
   ngOnInit() {
@@ -25,7 +29,9 @@ export class ProductsComponent implements OnInit {
     this.products = [];
     this.invSvc.fetchProducts().subscribe((response: any) => {
       this.products = (response) ? response.data : [];
+      this.onFilterChange();
     });
+    
   }
   addProduct() {
     this.isAdd = true;
@@ -58,7 +64,36 @@ export class ProductsComponent implements OnInit {
   deleteProduct(i, id) {
     this.invSvc.deleteProductById(id).subscribe(response => {
       this.products.splice(i, 1);
+      this.onFilterChange();
     })
   }
 
+  onFilterChange() {
+    this.filtered = this.products.filter((product) => this.isMatch(product));
+  }
+
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item.toString().toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+    }
+  }
+  sortFn(property) {
+    this.sortType = property;
+    this.sortReverse = !this.sortReverse;
+    this.filtered.sort(this.dynamicSort(property));
+  }
+  dynamicSort(property) {
+    let sortOrder = -1;
+
+    if (this.sortReverse) {
+      sortOrder = 1;
+    }
+
+    return function (a, b) {
+      let result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+      return result * sortOrder;
+    };
+  }
 }

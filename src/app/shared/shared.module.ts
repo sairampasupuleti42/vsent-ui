@@ -13,14 +13,17 @@ import { AsideComponent } from '../admin/components/aside/aside.component';
 import { FooterComponent } from '../admin/components/footer/footer.component';
 import { HeaderComponent } from '../admin/components/header/header.component';
 import { RouterModule } from '@angular/router';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { FilterPipe } from './pipes/filter.pipe';
+import { SortHeaderDirective } from './directives/sort-header.directive';
 
 @NgModule({
-  declarations: [CalloutComponent, CapitalizePipe, PageNotFoundComponent, ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent, AsideComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule, NgxDatatableModule],
-  exports: [CommonModule, FormsModule, RouterModule, NgxDatatableModule,
+  declarations: [CalloutComponent, CapitalizePipe, PageNotFoundComponent,
+    ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent,
+    AsideComponent, FilterPipe, SortHeaderDirective],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule],
+  exports: [CommonModule, FormsModule, RouterModule,
     ReactiveFormsModule, HttpClientModule, CalloutComponent, PageNotFoundComponent,
-    ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent, AsideComponent],
+    ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent, AsideComponent, FilterPipe],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
     AuthGuard]
 })

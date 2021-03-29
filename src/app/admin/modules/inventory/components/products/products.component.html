@@ -1,6 +1,14 @@
 <div class="box box-info">
   <div class="box-header with-border">
-    <h3 class="box-title"></h3>
+    <h3 class="box-title">
+      <div class="input-group input-group-sm hidden-xs" style="width: 180px;">
+        <input type="text" name="table_search" class="form-control pull-right" (keyup)="onFilterChange()"
+          [(ngModel)]="filterString" placeholder="Search product by name">
+        <div class="input-group-btn">
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+    </h3>
     <div class="box-tools">
       <a class="btn btn-danger btn-sm" *ngIf="isAdd" (click)="isAdd=!isAdd">
         Cancel
@@ -28,13 +36,15 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf="products?.length>0">
-            <tr *ngFor="let product of products;let i=index">
+          <ng-container *ngIf="filtered?.length>0">
+            <tr *ngFor="let product of filtered;let i=index">
               <td>{{i+1}}</td>
               <td>{{product?.product_name}}</td>
               <td>
-                <img *ngIf="product?.product_image" [src]="product?.product_image" [alt]="product?.product_name" width="80" height="80" />
-                <img *ngIf="!product?.product_image" src="./../../../../../../assets/dist/img/default-50x50.gif " [alt]="product?.product_name" width="80" height="80" />
+                <img *ngIf="product?.product_image" [src]="product?.product_image" [alt]="product?.product_name"
+                  width="80" height="80" />
+                <img *ngIf="!product?.product_image" src="./../../../../../../assets/dist/img/default-50x50.gif "
+                  [alt]="product?.product_name" width="80" height="80" />
               </td>
               <td><button class="btn btn-danger" (click)="deleteProduct(i,product.product_id)">Remove</button>
             </tr>

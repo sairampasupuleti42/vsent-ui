@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Inventory } from '../../models/inventory';
 import { InventoryService } from '../../service/inventory.service';
+
 @Component({
   selector: 'vs-variants',
   templateUrl: './variants.component.html',
@@ -13,30 +14,15 @@ export class VariantsComponent implements OnInit {
   variantForm: FormGroup;
   products: any;
   submitted: boolean = false;
-
-  // columns: any = {};
-  rows = [
-    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
-    { name: 'Dany', gender: 'Male', company: 'KFC' },
-    { name: 'Molly', gender: 'Female', company: 'Burger King' },
-  ];
-  columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
-  ];
+  filterString = "";
+  filtered;
+  sortType: any;
+  sortReverse: boolean;
+  filteredOrders: any;
   constructor(private fb: FormBuilder, private invSvc: InventoryService) { }
   ngOnInit() {
     this.getVariants();
-    // this.columns = [
-    //   { key: 'product_name', title: "Variant Name" },
-    //   { key: 'variant_name', title: 'Name' },
-    //   { key: 'per_case', title: 'Phone' },
-    //   { key: 'unit_price', title: 'Company' },
-    //   { key: 'cgst_percentage', title: 'Date' },
-    //   { key: 'sgst_percentage', title: 'Phone' },
-    // ];
-   
+
   }
   createForm() {
     const numericNumberReg = '^-?[0-9]\\d*(\\.\\d{1,2})?$';
@@ -65,8 +51,10 @@ export class VariantsComponent implements OnInit {
         this.products = response.data.products;
       }
       this.createForm();
+      this.onFilterChange();
     });
   }
+
   get vf() { return this.variantForm.controls; }
 
 
@@ -90,6 +78,36 @@ export class VariantsComponent implements OnInit {
   deleteVariant(i, id) {
     this.invSvc.deleteVariantById(id).subscribe(response => {
       this.variants.splice(i, 1);
+      this.onFilterChange()
     })
+  }
+
+  onFilterChange() {
+    this.filtered = this.variants.filter((variant) => this.isMatch(variant));
+  }
+
+  isMatch(item) {
+    if (item instanceof Object) {
+      return Object.keys(item).some((k) => this.isMatch(item[k]));
+    } else {
+      return item.toString().toLowerCase().indexOf(this.filterString.toLowerCase()) > -1
+    }
+  }
+  sortFn(property) {
+    this.sortType = property;
+    this.sortReverse = !this.sortReverse;
+    this.filtered.sort(this.dynamicSort(property));
+  }
+  dynamicSort(property) {
+    let sortOrder = -1;
+
+    if (this.sortReverse) {
+      sortOrder = 1;
+    }
+
+    return function (a, b) {
+      let result = a[property] < b[property] ? -1 : a[property] > b[property] ? 1 : 0;
+      return result * sortOrder;
+    };
   }
 }

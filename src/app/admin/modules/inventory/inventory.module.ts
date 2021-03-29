@@ -9,12 +9,14 @@ import { UpdateInventoryComponent } from './components/update-inventory/update-i
 import { InventoryChangesComponent } from './components/inventory-changes/inventory-changes.component';
 import { CommissionsComponent } from './components/commissions/commissions.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [ProductsComponent, VariantsComponent, DailySettingsComponent, UpdateInventoryComponent, InventoryChangesComponent, CommissionsComponent],
   imports: [
     CommonModule,
     InventoryRoutingModule,
+    NgxDatatableModule,
     SharedModule
   ]
 })

@@ -32,7 +32,10 @@
             <tr *ngFor="let product of products;let i=index">
               <td>{{i+1}}</td>
               <td>{{product?.product_name}}</td>
-              <td><img [src]="product?.product_image" [alt]="product?.product_name" width="80" height="80" /></td>
+              <td>
+                <img *ngIf="product?.product_image" [src]="product?.product_image" [alt]="product?.product_name" width="80" height="80" />
+                <img *ngIf="!product?.product_image" src="./../../../../../../assets/dist/img/default-50x50.gif " [alt]="product?.product_name" width="80" height="80" />
+              </td>
               <td><button class="btn btn-danger" (click)="deleteProduct(i,product.product_id)">Remove</button>
             </tr>
           </ng-container>

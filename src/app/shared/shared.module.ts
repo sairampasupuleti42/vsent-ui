@@ -13,12 +13,13 @@ import { AsideComponent } from '../admin/components/aside/aside.component';
 import { FooterComponent } from '../admin/components/footer/footer.component';
 import { HeaderComponent } from '../admin/components/header/header.component';
 import { RouterModule } from '@angular/router';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [CalloutComponent, CapitalizePipe, PageNotFoundComponent, ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent, AsideComponent],
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule],
-  exports: [CommonModule, FormsModule, RouterModule,
-    ReactiveFormsModule, HttpClientModule, CalloutComponent, PageNotFoundComponent, 
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, HttpClientModule, RouterModule, NgxDatatableModule],
+  exports: [CommonModule, FormsModule, RouterModule, NgxDatatableModule,
+    ReactiveFormsModule, HttpClientModule, CalloutComponent, PageNotFoundComponent,
     ConnectivityComponent, LayoutComponent, FooterComponent, HeaderComponent, AsideComponent],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
     AuthGuard]

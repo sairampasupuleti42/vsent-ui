@@ -22,12 +22,7 @@
             <input type="text" id="customer_mobile" class="form-control" formControlName="customer_mobile" />
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="customer_gst">Customer GST</label>
-            <input type="text" id="customer_gst" class="form-control" formControlName="customer_gst" />
-          </div>
-        </div>
+     
       </div>
       <div class="row">
         <div class="col-md-4">
@@ -41,19 +36,13 @@
         </div>
         <div class="col-md-4">
           <div class="form-group">
-            <label for="payment_status">Payment Status</label>
-            <select id="payment_status" class="form-control" formControlName="payment_status">
-              <option [value]="'PAID'" [selected]="true">Paid</option>
-              <option [value]="'CREDIT'">Credit</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
             <label for="payment_type">Payment Type</label>
             <select id="payment_type" class="form-control" formControlName="payment_type">
               <option [value]="'CASH'" [selected]="true">Cash</option>
               <option [value]="'CARD'">Card</option>
+              <option [value]="'GPAY'">GPay</option>
+              <option [value]="'PHONEPE'">PhonePe</option>
+              <option [value]="'PAYTM'">Paytm</option>
             </select>
           </div>
         </div>

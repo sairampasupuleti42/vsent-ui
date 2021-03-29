@@ -49,25 +49,32 @@
       <div class="text-center" *ngIf="!variants">
         <p class="text-danger">Variants not added !</p>
       </div>
+   
     </ng-container>
     <ng-container *ngIf="isAdd">
       <form [formGroup]="variantForm">
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label for="variant_name">Variant Name</label>
+              <label for="variant_name">Variant Name <span class="req-field">*</span></label>
               <input type="text" id="variant_name" class="form-control" formControlName="variant_name" />
+              <div *ngIf="submitted && vf.variant_name.errors" class="invalid-feedback">
+                <div *ngIf="vf.variant_name.errors.required">Please enter variant name !</div>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
               <div *ngIf="products">
-                <label for="product_id">Select Product</label>
+                <label for="product_id">Select Product <span class="req-field">*</span></label>
                 <select name="product_id" class="form-control" id="product_id" formControlName="product_id">
                   <option value="">-- Select Product --</option>
                   <option [value]="product.product_id" *ngFor="let product of products"
                     [innerHTML]="product.product_name"></option>
                 </select>
+                <div *ngIf="submitted && vf.product_id.errors" class="invalid-feedback">
+                  <div *ngIf="vf.product_id.errors.required">Please select product !</div>
+                </div>
               </div>
               <div *ngIf="!products">
                 Products not available ! Please add <a routerLink="/admin/inventory/products">here</a>
@@ -80,20 +87,31 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group">
-              <label for="per_case">Per Case [Number of Units]</label>
+              <label for="per_case">Per Case [Number of Units] <span class="req-field">*</span></label>
               <input type="text" id="per_case" class="form-control" formControlName="per_case" />
+              <div *ngIf="submitted && vf.per_case.errors" class="invalid-feedback">
+                <div *ngIf="vf.per_case.errors.required">Please enter number of units !</div>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="case_price">Case Price</label>
+              <label for="case_price">Case Price <span class="req-field">*</span> </label>
               <input type="text" id="case_price" class="form-control" formControlName="case_price" />
+              <div *ngIf="submitted && vf.case_price.errors" class="invalid-feedback">
+                <div *ngIf="vf.case_price.errors.required">Please enter Case Price !</div>
+                <div *ngIf="vf.case_price.errors.pattern">Please enter valid Case Price !</div>
+              </div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="unit_price">Single Unit Price</label>
+              <label for="unit_price">Single Unit Price <span class="req-field">*</span> </label>
               <input type="text" id="unit_price" class="form-control" formControlName="unit_price" />
+              <div *ngIf="submitted && vf.unit_price.errors" class="invalid-feedback">
+                <div *ngIf="vf.unit_price.errors.required">Please enter Unit Price !</div>
+                <div *ngIf="vf.unit_price.errors.pattern">Please enter valid Unit Price !</div>
+              </div>
             </div>
           </div>
         </div>
@@ -126,7 +144,7 @@
           </div>
           <div class="col-md-4">
             <div class="form-group">
-              <label for="transport_amount">Transport</label>
+              <label for="transport_amount">Transport </label>
               <input type="text" id="transport_amount" class="form-control" formControlName="transport_amount" />
             </div>
           </div>

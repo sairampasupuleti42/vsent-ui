@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Inventory } from '../../models/inventory';
 import { InventoryService } from '../../service/inventory.service';
 @Component({
@@ -12,24 +12,47 @@ export class VariantsComponent implements OnInit {
   isAdd: boolean = false;
   variantForm: FormGroup;
   products: any;
+  submitted: boolean = false;
+
+  // columns: any = {};
+  rows = [
+    { name: 'Austin', gender: 'Male', company: 'Swimlane' },
+    { name: 'Dany', gender: 'Male', company: 'KFC' },
+    { name: 'Molly', gender: 'Female', company: 'Burger King' },
+  ];
+  columns = [
+    { prop: 'name' },
+    { name: 'Gender' },
+    { name: 'Company' }
+  ];
   constructor(private fb: FormBuilder, private invSvc: InventoryService) { }
   ngOnInit() {
     this.getVariants();
+    // this.columns = [
+    //   { key: 'product_name', title: "Variant Name" },
+    //   { key: 'variant_name', title: 'Name' },
+    //   { key: 'per_case', title: 'Phone' },
+    //   { key: 'unit_price', title: 'Company' },
+    //   { key: 'cgst_percentage', title: 'Date' },
+    //   { key: 'sgst_percentage', title: 'Phone' },
+    // ];
+   
   }
   createForm() {
+    const numericNumberReg = '^-?[0-9]\\d*(\\.\\d{1,2})?$';
     this.variantForm = this.fb.group({
-      variant_name: new FormControl(''),
-      product_id: new FormControl(''),
-      per_case: new FormControl(''),
-      case_price: new FormControl(),
-      unit_price: new FormControl(''),
+      variant_name: new FormControl('', [Validators.required]),
+      product_id: new FormControl('', [Validators.required]),
+      per_case: new FormControl('', [Validators.required]),
+      case_price: new FormControl('', [Validators.required, Validators.pattern(numericNumberReg)]),
+      unit_price: new FormControl('', [Validators.required, Validators.pattern(numericNumberReg)]),
       quantity: new FormControl(''),
       cgst_percentage: new FormControl(''),
       sgst_percentage: new FormControl(''),
       cess: new FormControl(''),
-      margin_amount: new FormControl(''),
-      transport_amount: new FormControl(''),
-      incentive_amount: new FormControl('')
+      margin_amount: new FormControl('', [Validators.pattern(numericNumberReg)]),
+      transport_amount: new FormControl('', [Validators.pattern(numericNumberReg)]),
+      incentive_amount: new FormControl('', [Validators.pattern(numericNumberReg)])
     })
   }
   addVariant() {
@@ -44,14 +67,25 @@ export class VariantsComponent implements OnInit {
       this.createForm();
     });
   }
+  get vf() { return this.variantForm.controls; }
+
+
   saveVariant() {
-    this.invSvc.insertVariant(this.variantForm.value).subscribe((response: any) => {
-      if (response) {
-        this.variantForm.reset();
-        this.getVariants();
-      }
-      this.isAdd = false;
-    });
+    this.submitted = true;
+    if (this.variantForm.invalid) {
+      return;
+    }
+    if (!!this.variantForm.valid) {
+      this.invSvc.insertVariant(this.variantForm.value).subscribe((response: any) => {
+        if (response) {
+          this.variantForm.reset();
+          this.getVariants();
+        }
+        this.isAdd = false;
+      });
+    } else {
+      alert('Error')
+    }
   }
   deleteVariant(i, id) {
     this.invSvc.deleteVariantById(id).subscribe(response => {

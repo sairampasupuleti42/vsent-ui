@@ -26,11 +26,10 @@ export class CounterOrderComponent implements OnInit {
   }
   createForm() {
     this.orderForm = this.fb.group({
-      order_type: 'COUNTER',
+      order_type: new FormControl('COUNTER'),
       customer_name: new FormControl(''),
       customer_mobile: new FormControl(''),
-      customer_gst: new FormControl(''),
-      payment_status: new FormControl('PAID'),
+    
       allow_free_items: new FormControl('YES'),
       payment_type: new FormControl('CASH'),
       order_contents: this.fb.array([this.createItem()]),

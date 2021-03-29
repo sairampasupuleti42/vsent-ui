@@ -49,19 +49,37 @@ h6 {
 }
 
 label {
-  font-weight: 600 !important;
+  font-weight: 500 !important;
   letter-spacing: 2px;
+  font-size: 20px;
 }
 
 .navbar-custom-menu>.navbar-nav>li>.dropdown-menu {
   border: 1px solid #d2d6de;
 }
+
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header {
   background-color: #fff;
 }
+
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header>p {
   color: #999;
 }
-.treeview-menu>li.active{
-  background-color: #d2d6de;
+
+.treeview-menu>li.active {
+  background-color: #c2cbdb;
+}
+
+.treeview-menu>li>a {
+  font-size: 20px !important;
+}
+
+.invalid-feedback {
+  color: indianred;
+  text-align: left;
+}
+
+.req-field {
+  color: indianred;
+  text-align: left;
 }

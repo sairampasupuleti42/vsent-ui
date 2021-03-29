@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
       items: [
         { path: "/admin/inventory/products", title: "Products" },
         { path: "/admin/inventory/variants", title: "Variants" },
-        { path: "/admin/inventory/commissions", title: "Commissions" },
+        { path: "/admin/inventory/commissions", title: "Commissions", hidden: true },
         { path: "/admin/inventory/daily-settings", title: "Daily Settings" },
         { path: "/admin/inventory/inventory-changes", title: "Inventory Changes" },
         { path: "/admin/inventory/update-inventory", title: "Update Inventory" }

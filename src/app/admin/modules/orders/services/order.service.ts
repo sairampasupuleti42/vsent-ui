@@ -24,4 +24,7 @@ export class OrderService {
   loadDrivers() {
     return this.httpSvc.get(`${e.apiUrl}/users/drivers`);
   }
+  getOrderByOrderId(id: number) {
+    return this.httpSvc.get(`${e.apiUrl}/orders/order/${id}`)
+  }
 }

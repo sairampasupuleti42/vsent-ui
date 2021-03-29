@@ -7,7 +7,7 @@ import { AuthGuard } from './shared/gaurds/auth.guard';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

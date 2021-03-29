@@ -1,0 +1,13 @@
+th,
+td {
+  padding: 1px 4px !important;
+  border: 1px dashed;
+}
+
+p {
+  margin: 0 0 4px !important;
+}
+
+span {
+  font-weight: 600 !important;
+}

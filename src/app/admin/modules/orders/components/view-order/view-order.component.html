@@ -1,0 +1,48 @@
+<div class="box box-danger" data-select2-id="16">
+  <div class="box-header with-border">
+    <h3 class="box-title">Order <span [innerHTML]="order?.order_no"></span></h3>
+    <div class="box-tools pull-right">
+      <a  class="btn btn-primary" [href]="'/admin/orders/print/'+order.order_id" target="_blank"><i class="fa fa-print"></i> Print </a>
+    </div>
+  </div>
+  <!-- /.box-header -->
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-12">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="text-center">Counter Order Contents</h4>
+        <table class="table table-bordered table-responsive">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Item</th>
+              <th>Cases</th>
+              <th>Bottles</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngIf="order?.order_contents">
+              <tr *ngFor="let c of order.order_contents;let i=index;">
+                <td>{{i+1}}</td>
+                <td><span [innerHTML]="c.variant_name"></span></td>
+                <td><span [innerHTML]="c.cases"></span></td>
+                <td><span [innerHTML]="c.bottles"></span></td>
+                <td><span [innerHTML]="c.amount"></span></td>
+              </tr>
+            </ng-container>
+            <tr>
+              <td colspan="5">
+                <p></p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

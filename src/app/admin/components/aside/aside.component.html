@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+<aside class="main-sidebar ">
   <section class="sidebar">
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">
@@ -15,7 +15,7 @@
           </span>
         </a>
         <ul class="treeview-menu" style="display: block;" *ngIf="menu.subMenu">
-          <li *ngFor="let item of menu.items" [routerLinkActive]="['active']"[routerLinkActiveOptions]="{exact:true}">
+          <li *ngFor="let item of menu.items" [hidden]="item?.hidden" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
             <a [routerLink]="item.path" [title]="item.title" [innerHTML]="item.title">
               <i class="fa fa-circle-o"></i>
             </a>

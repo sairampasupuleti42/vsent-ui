@@ -83,6 +83,13 @@ label {
   color: indianred;
   text-align: left;
 }
+
 .sort-th {
   cursor: pointer !important;
+}
+
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
 }

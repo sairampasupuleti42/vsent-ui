@@ -8,9 +8,12 @@ import { UnpaidOrderComponent } from './components/unpaid-order/unpaid-order.com
 import { DailyReportComponent } from './components/daily-report/daily-report.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ViewOrderComponent } from './components/view-order/view-order.component';
+import { PrintOrderComponent } from './components/print-order/print-order.component';
+
 @NgModule({
   declarations: [CounterOrderComponent, DeliveryOrderComponent,
-    UnpaidOrderComponent, DailyReportComponent, OrdersComponent],
+    UnpaidOrderComponent, DailyReportComponent, OrdersComponent, ViewOrderComponent, PrintOrderComponent],
   imports: [
     CommonModule,
     OrdersRoutingModule,
